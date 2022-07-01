@@ -2,9 +2,9 @@
 
 ## To-do list 
 ### GUI
-- [ ] 学习PyQt5
+- [x] 学习PyQt5
     - [x] Qt Designer 失败
-- [ ] 初步设计GUI
+- [x] 初步设计GUI
 - [ ] 连接控制器
 - [ ] 完善
 ### 数据库
