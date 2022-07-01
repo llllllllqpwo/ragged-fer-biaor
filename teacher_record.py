@@ -1,17 +1,26 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QHBoxLayout, QLineEdit, QVBoxLayout, QPushButton, QTableWidgetItem, QTableWidget
+from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTableWidget, QCheckBox, QComboBox
 
 class Demo(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.exam_label = QLabel('new exam', self)
-        self.exam_line = QLineEdit(self)
-        self.search_button = QPushButton('Save', self)
+        self.exam_label = QLabel('choice exam', self)
+        self.subj_label = QLabel('choice subject', self)
+        self.show_class_check = QCheckBox('show class', self)
+        self.show_rank_check = QCheckBox('show rank', self)
+        #these two lines will be enough? in chap.7
+        self.exam_combo = QComboBox(self)
+        self.subj_combo = QComboBox(self)
+        self.search_button = QPushButton('Start', self)
 
         self.h_layout = QHBoxLayout()
         self.h_layout.addWidget(self.exam_label)
-        self.h_layout.addWidget(self.exam_line)
+        self.h_layout.addWidget(self.exam_combo)
+        self.h_layout.addWidget(self.subj_label)
+        self.h_layout.addWidget(self.subj_combo)
+        self.h_layout.addWidget(self.show_class_check)
+        self.h_layout.addWidget(self.show_rank_check)
         self.h_layout.addWidget(self.search_button)
 
         self.table = Demo_table()
