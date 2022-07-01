@@ -40,11 +40,11 @@ class Demo_table(QTableWidget):
         super().__init__()
         # self.rct = 1
         self.setRowCount(1)
-        self.setColumnCount(4)
+        self.setColumnCount(5)
         self.setRowHeight(0, 30)
         # for i in range(self.rct - 1):
             # self.new_line()
-        self.setHorizontalHeaderLabels(['code', 'k', 'd', 'a'])
+        self.setHorizontalHeaderLabels(['code', 'class', 'k', 'd', 'a'])
         self.nbuton = QPushButton('new line')
         self.nbuton.clicked.connect(self.new_line)
         self.setSpan(self.rowCount()-1, 0, 1, self.columnCount())
