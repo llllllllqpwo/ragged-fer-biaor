@@ -33,7 +33,7 @@ class Demo_table(QTableWidget):
         self.setRowHeight(0, 30)
         for i in range(self.rct):
             self.buton = QPushButton('d')
-            self.buton.clicked.connect(lambda:self.dlt(i))
+            self.buton.clicked.connect(lambda:self.dlt())
             self.setCellWidget(i, 0, self.buton)
         self.setHorizontalHeaderLabels(['delete', 'name', 'code', 'k', 'd', 'a'])
         self.item_1 = QTableWidgetItem('Hi11111111111111111111111111111111111111')
@@ -41,9 +41,11 @@ class Demo_table(QTableWidget):
         # self.removeRow(2)
         # self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
     
-    def dlt(self, r):
-        self.removeRow(r)
-        
+    def dlt(self):
+       button = self.sender()
+       if button:
+            row = self.indexAt(button.pos()).row()
+            print(row) 
 
 
 if __name__ == '__main__':
