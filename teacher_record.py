@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTableWidget, QLineEdit
-
+from dbctl import dbctl
 class Demo(QWidget):
 
     def __init__(self):
@@ -18,25 +18,33 @@ class Demo(QWidget):
 
         self.table = Demo_table()
         self.delete_button.clicked.connect(self.table.dlt)
-        self.save_button.clicked.connect(lambda:print('saved'))
+        self.save_button.clicked.connect(self.save)
         self.v_layout = QVBoxLayout()
         self.v_layout.addLayout(self.h_layout)
         self.v_layout.addWidget(self.table)
 
         self.setLayout(self.v_layout)
-
+    def save(self):
+        d = dbctl(self.exam_line.text())
+        for i in range(self.table.rowCount()-1):
+            person = []
+            for ii in range(self.table.columnCount()):
+                person.append(self.table.item(i, ii).text())
+            d.new_line(person)
+        d.finish()
+                        
         
 
 class Demo_table(QTableWidget):
     def __init__(self):
         super().__init__()
-        self.rct = 7
+        # self.rct = 1
         self.setRowCount(1)
-        self.setColumnCount(5)
+        self.setColumnCount(4)
         self.setRowHeight(0, 30)
-        for i in range(self.rct - 1):
-            self.new_line()
-        self.setHorizontalHeaderLabels(['name', 'code', 'k', 'd', 'a'])
+        # for i in range(self.rct - 1):
+            # self.new_line()
+        self.setHorizontalHeaderLabels(['code', 'k', 'd', 'a'])
         self.nbuton = QPushButton('new line')
         self.nbuton.clicked.connect(self.new_line)
         self.setSpan(self.rowCount()-1, 0, 1, self.columnCount())
