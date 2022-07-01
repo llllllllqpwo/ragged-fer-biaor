@@ -1,5 +1,4 @@
 import sys
-from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTableWidget, QLineEdit
 
 class Demo(QWidget):
@@ -34,7 +33,6 @@ class Demo_table(QTableWidget):
         self.rct = 7
         self.setRowCount(1)
         self.setColumnCount(5)
-        # self.setColumnWidth(0, 30)
         self.setRowHeight(0, 30)
         for i in range(self.rct - 1):
             self.new_line()
@@ -44,17 +42,9 @@ class Demo_table(QTableWidget):
         self.setSpan(self.rowCount()-1, 0, 1, self.columnCount())
         self.setCellWidget(self.rowCount()-1, 0, self.nbuton)
 
-        # self.removeRow(2)
-        # self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
     def new_line(self):
         self.insertRow(self.rowCount()-1)
-        # self.check = QTableWidgetItem()
-        # self.check.setCheckState(Qt.Unchecked)
-        # self.setItem(self.rowCount()-2, 0, self.check)
-        # self.dbuton = QPushButton('d')
-        # self.dbuton.clicked.connect(lambda:self.dlt())
-        # self.setCellWidget(self.rowCount()-2, 0, self.dbuton)
-        
+
     def dlt(self):
         s_items = self.selectedIndexes()
         if s_items:
