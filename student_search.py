@@ -39,7 +39,7 @@ class Demo_table(QTableWidget):
         self.setColumnCount(6)
         self.setColumnWidth(0, 30)
         self.setRowHeight(0, 30)
-        self.setHorizontalHeaderLabels(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
+        self.setHorizontalHeaderLabels(['exam', 'rank', 'total', 'k', 'd', 'a'])
         self.item_1 = QTableWidgetItem('Hi11111111111111111111111111111111111111')
         self.setItem(0, 0, self.item_1)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
