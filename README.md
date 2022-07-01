@@ -3,7 +3,7 @@
 ## To-do list 
 ### GUI
 - [ ] 学习PyQt5
-    - [ ] Qt Designer
+    - [x] Qt Designer 失败
 - [ ] 初步设计GUI
 - [ ] 连接控制器
 - [ ] 完善

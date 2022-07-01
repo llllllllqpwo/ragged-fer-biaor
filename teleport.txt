@@ -1,1 +1,7 @@
-https://zhuanlan.zhihu.com/p/269273821
+Sqlite 官方文档: https://www.sqlite.org/docs.html
+Sqlite 菜鸟教程: https://www.runoob.com/sqlite/sqlite-python.html
+python 中使用 Sqlite: https://blog.bombox.org/2016-06-22/python-sqlite/
+Sqliteexpert 下载: https://www.sqliteexpert.com/download.html
+PyQt5 中可视化数据库实例 1: https://zmister.com/archives/354.html
+在 PyQt5 中可视化数据库实例 2(出题人推荐，文中代码会查重):
+https://blog.csdn.net/chengmo123/article/details/95303605
