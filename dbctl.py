@@ -5,7 +5,6 @@ class dbctl:
         self.conn = sqlite3.connect('test.db')
         self.c = self.conn.cursor()
         self.name = name
-        print(name)
         self.c.execute('''CREATE TABLE {}
     (ID INTEGER PRIMARY KEY AUTOINCREMENT,
     CODE INT NOT NULL UNIQUE,
@@ -31,20 +30,11 @@ class dbctl:
         self.conn.commit()
         self.conn.close()
 
-# password = '1'
-# md5 =  hashlib.md5(password.encode('utf8')).hexdigest()
-# conn = sqlite3.connect('test.db')
-
-# c = conn.cursor()
-# # c.execute('DELETE FROM SECURITY')
-# # c.execute('INSERT INTO SECURITY (CODE, NAME, PASSWORD) VALUES (21377266, \'LUHUA\', \'FAQ\')')
-# # c.execute('SELECT * FROM SECURITY')
-# # values = c.fetchall()
-# # print(values)
-
-# c.execute('''CREATE TABLE SECURITY
-#     (ID INTEGER PRIMARY KEY AUTOINCREMENT,
-#     CODE INT NOT NULL UNIQUE,
-#     NAME TEXT NOT NULL,
-#     PASSWORD CHAR(32) NOT NULL,
-#     TEACHER INT DEFAULT 0);''')
+class dbrqt:
+    def __init__(self):
+        self.conn = sqlite3.connect('test.db')
+        self.c = self.conn.cursor()
+        self.fresh_exams = self.c.execute("SELECT * FROM sqlite_master WHERE TYPE=='index'").fetchall()
+        self.exams = []
+        for i in self.fresh_exams:
+            self.exams.append(i[2])

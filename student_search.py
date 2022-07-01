@@ -1,17 +1,17 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTableWidget, QCheckBox, QComboBox
-
+from dbctl import dbrqt
 class Demo(QWidget):
 
     def __init__(self):
         super().__init__()
         self.exam_label = QLabel('choice exam')
         self.subj_label = QLabel('choice subject')
-        self.show_class_check = QCheckBox('show class')
-        self.show_rank_check = QCheckBox('show rank')
+        self.show_class_check = QCheckBox('inrank')
+        self.show_rank_check = QCheckBox('outrank')
         self.exam_combo = QComboBox()
         self.subj_combo = QComboBox()
-        self.search_button = QPushButton('Start', )
+        self.search_button = QPushButton('Join')
         self.delete_button = QPushButton('Delete')
 
         self.h_layout = QHBoxLayout()
@@ -25,6 +25,10 @@ class Demo(QWidget):
         self.h_layout.addWidget(self.delete_button)
 
         self.table = Demo_table()
+        self.dbrqt = dbrqt()
+        self.show_class_check
+        self.exam_combo.addItems(self.dbrqt.exams)
+        self.subj_combo.addItems(['total', 'k', 'd', 'a'])
         self.delete_button.clicked.connect(self.table.dlt)
         self.search_button.clicked.connect(lambda:print('saved'))
         self.v_layout = QVBoxLayout()
@@ -40,11 +44,12 @@ class Demo_table(QTableWidget):
         super().__init__()
         self.rct = 7
         self.setRowCount(0)
-        self.setColumnCount(5)
+        self.setColumnCount(7)
         self.setRowHeight(0, 30)
-        self.setHorizontalHeaderLabels(['rank', 'sum', 'k', 'd', 'a'])
-
-        
+        self.setHorizontalHeaderLabels(['exam', 'inrank', 'outrank', 'sum', 'k', 'd', 'a'])
+        self.setColumnHidden(1,True)
+        self.setColumnHidden(2,True)
+                
     def dlt(self):
         s_items = self.selectedIndexes()
         if s_items:
