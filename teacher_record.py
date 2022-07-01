@@ -1,28 +1,19 @@
 import sys
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTableWidget, QCheckBox, QComboBox
+from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTableWidget, QLineEdit
 
 class Demo(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.exam_label = QLabel('choice exam')
-        self.subj_label = QLabel('choice subject')
-        self.show_class_check = QCheckBox('show class')
-        self.show_rank_check = QCheckBox('show rank')
-        #these two lines will be enough? in chap.7
-        self.exam_combo = QComboBox(self)
-        self.subj_combo = QComboBox(self)
+        self.exam_label = QLabel('new exam')
+        self.exam_line = QLineEdit()
         self.save_button = QPushButton('Save')
         self.delete_button = QPushButton('Delete')
 
         self.h_layout = QHBoxLayout()
         self.h_layout.addWidget(self.exam_label)
-        self.h_layout.addWidget(self.exam_combo)
-        self.h_layout.addWidget(self.subj_label)
-        self.h_layout.addWidget(self.subj_combo)
-        self.h_layout.addWidget(self.show_class_check)
-        self.h_layout.addWidget(self.show_rank_check)
+        self.h_layout.addWidget(self.exam_line)
         self.h_layout.addWidget(self.delete_button)
         self.h_layout.addWidget(self.save_button)
 
@@ -43,7 +34,7 @@ class Demo_table(QTableWidget):
         self.rct = 7
         self.setRowCount(1)
         self.setColumnCount(5)
-        self.setColumnWidth(0, 30)
+        # self.setColumnWidth(0, 30)
         self.setRowHeight(0, 30)
         for i in range(self.rct - 1):
             self.new_line()
