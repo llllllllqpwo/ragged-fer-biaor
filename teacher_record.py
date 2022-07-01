@@ -26,26 +26,32 @@ class Demo(QWidget):
 class Demo_table(QTableWidget):
     def __init__(self):
         super().__init__()
-        self.rct = 6
-        self.setRowCount(self.rct)
+        self.rct = 7
+        self.setRowCount(1)
         self.setColumnCount(6)
         self.setColumnWidth(0, 30)
         self.setRowHeight(0, 30)
-        for i in range(self.rct):
-            self.buton = QPushButton('d')
-            self.buton.clicked.connect(lambda:self.dlt())
-            self.setCellWidget(i, 0, self.buton)
+        for i in range(self.rct - 1):
+            self.new_line()
         self.setHorizontalHeaderLabels(['delete', 'name', 'code', 'k', 'd', 'a'])
-        self.item_1 = QTableWidgetItem('Hi11111111111111111111111111111111111111')
-        self.setItem(2, 2, self.item_1)
+        self.nbuton = QPushButton('new line')
+        self.nbuton.clicked.connect(self.new_line)
+        self.setSpan(self.rowCount()-1, 0, 1, self.columnCount())
+        self.setCellWidget(self.rowCount()-1, 0, self.nbuton)
+
         # self.removeRow(2)
         # self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-    
+    def new_line(self):
+        self.insertRow(self.rowCount()-1)
+        self.dbuton = QPushButton('d')
+        self.dbuton.clicked.connect(lambda:self.dlt())
+        self.setCellWidget(self.rowCount()-2, 0, self.dbuton)
+        
     def dlt(self):
        button = self.sender()
        if button:
             row = self.indexAt(button.pos()).row()
-            print(row) 
+            self.removeRow(row)
 
 
 if __name__ == '__main__':
