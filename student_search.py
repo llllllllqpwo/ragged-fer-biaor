@@ -1,10 +1,11 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTableWidget, QCheckBox, QComboBox
+from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTableWidget, QTableWidgetItem, QCheckBox, QComboBox
 from dbctl import dbrqt
 class Demo(QWidget):
 
     def __init__(self):
         super().__init__()
+        self.code = 123
         self.exam_label = QLabel('choice exam')
         self.subj_label = QLabel('choice subject')
         self.show_class_check = QCheckBox('inrank')
@@ -26,16 +27,37 @@ class Demo(QWidget):
 
         self.table = Demo_table()
         self.dbrqt = dbrqt()
-        self.show_class_check
+        self.show_class_check.stateChanged.connect(lambda:self.table.setColumnHidden(1, 2-self.show_class_check.checkState()))
+        self.show_rank_check.stateChanged.connect(lambda:self.table.setColumnHidden(2, 2-self.show_rank_check.checkState()))
+        self.subj_combo.currentIndexChanged.connect(self.on_combobox_func)
         self.exam_combo.addItems(self.dbrqt.exams)
         self.subj_combo.addItems(['total', 'k', 'd', 'a'])
         self.delete_button.clicked.connect(self.table.dlt)
-        self.search_button.clicked.connect(lambda:print('saved'))
+        self.search_button.clicked.connect(lambda:self.join(self.exam_combo.currentText(), self.code))
         self.v_layout = QVBoxLayout()
         self.v_layout.addLayout(self.h_layout)
         self.v_layout.addWidget(self.table)
 
         self.setLayout(self.v_layout)
+    def on_combobox_func(self):
+        state = self.subj_combo.currentIndex()
+        for i in range(4):
+            if i == state:
+                self.table.setColumnHidden(i+3, False)
+            else:
+                self.table.setColumnHidden(i+3, True)
+
+    def join(self, exam, code):
+        li = self.dbrqt.search(exam, code)[0]
+        print(li)
+        self.table.insertRow(0)
+        for i in range(7):
+            c = 0
+            if i == 0:
+                c = exam
+            else:
+                c = li[i-1]
+            self.table.setItem(0, i, QTableWidgetItem(str(c)))
 
         
 
@@ -56,7 +78,7 @@ class Demo_table(QTableWidget):
             selected_rows = []
             for i in s_items:
                 row = i.row()
-                if row not in selected_rows and row != self.rowCount()-1:
+                if row not in selected_rows:
                     selected_rows.append(row)
             for r in range(len(sorted(selected_rows))):
                     self.removeRow(selected_rows[r]-r)

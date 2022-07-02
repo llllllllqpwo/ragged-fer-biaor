@@ -9,12 +9,12 @@ class dbctl:
     (ID INTEGER PRIMARY KEY AUTOINCREMENT,
     CODE INT NOT NULL UNIQUE,
     CLASS INT NOT NULL,
+    INRANK INT,
+    OUTRANK INT,
     TOTAL INT NOT NULL,
     K INT NOT NULL,
     D INT NOT NULL,
-    A INT NOT NULL,
-    INRANK INT,
-    OUTRANK INT);'''.format(self.name))
+    A INT NOT NULL);'''.format(self.name))
     def new_line(self, li):
         self.c.execute('INSERT INTO {} (CODE, CLASS, K, D, A, TOTAL) VALUES ({}, {})'.format(self.name, ','.join(li), sum(list(map(int, li[2:])))))
     def finish(self):
@@ -38,3 +38,6 @@ class dbrqt:
         self.exams = []
         for i in self.fresh_exams:
             self.exams.append(i[2])
+
+    def search(self, exam, code):
+        return self.c.execute('SELECT INRANK, OUTRANK, TOTAL, K, D, A FROM {} WHERE CODE=={}'.format(exam, code)).fetchall()
