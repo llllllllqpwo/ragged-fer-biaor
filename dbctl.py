@@ -38,6 +38,7 @@ class dbrqt:
         self.exams = []
         for i in self.fresh_exams:
             self.exams.append(i[2])
+        self.exams.remove('SECURITY')
 
     def search(self, exam, code):
         return self.c.execute('SELECT INRANK, OUTRANK, TOTAL, K, D, A FROM {} WHERE CODE=={}'.format(exam, code)).fetchall()

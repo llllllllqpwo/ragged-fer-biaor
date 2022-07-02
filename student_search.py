@@ -1,6 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTableWidget, QTableWidgetItem, QCheckBox, QComboBox
+from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTableWidget, QTableWidgetItem, QCheckBox, QComboBox, QAbstractItemView
 from dbctl import dbrqt
+from pyqtgraph import PlotWidget
 class Demo(QWidget):
 
     def __init__(self):
@@ -14,6 +15,7 @@ class Demo(QWidget):
         self.subj_combo = QComboBox()
         self.search_button = QPushButton('Join')
         self.delete_button = QPushButton('Delete')
+        self.graph_button = QPushButton('graph')
 
         self.h_layout = QHBoxLayout()
         self.h_layout.addWidget(self.exam_label)
@@ -24,6 +26,7 @@ class Demo(QWidget):
         self.h_layout.addWidget(self.show_rank_check)
         self.h_layout.addWidget(self.search_button) 
         self.h_layout.addWidget(self.delete_button)
+        self.h_layout.addWidget(self.graph_button)
 
         self.table = Demo_table()
         self.dbrqt = dbrqt()
@@ -34,6 +37,7 @@ class Demo(QWidget):
         self.subj_combo.addItems(['total', 'k', 'd', 'a'])
         self.delete_button.clicked.connect(self.table.dlt)
         self.search_button.clicked.connect(lambda:self.join(self.exam_combo.currentText(), self.code))
+        self.graph_button.clicked.connect(self.table.graph)
         self.v_layout = QVBoxLayout()
         self.v_layout.addLayout(self.h_layout)
         self.v_layout.addWidget(self.table)
@@ -49,7 +53,6 @@ class Demo(QWidget):
 
     def join(self, exam, code):
         li = self.dbrqt.search(exam, code)[0]
-        print(li)
         self.table.insertRow(0)
         for i in range(7):
             c = 0
@@ -68,10 +71,23 @@ class Demo_table(QTableWidget):
         self.setRowCount(0)
         self.setColumnCount(7)
         self.setRowHeight(0, 30)
+        self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.setHorizontalHeaderLabels(['exam', 'inrank', 'outrank', 'sum', 'k', 'd', 'a'])
         self.setColumnHidden(1,True)
         self.setColumnHidden(2,True)
-                
+
+    def graph(self):
+        self.values = []
+        self.col = self.currentColumn()
+        for i in range(self.rowCount()):
+            self.values.append(int(self.item(i, self.col).text()))
+        print(self.values)
+        self.plotw = PlotWidget()
+        self.plotw.plot(self.values, pen='r', symbol='o')
+        self.plotw.show()
+
+        
+
     def dlt(self):
         s_items = self.selectedIndexes()
         if s_items:
