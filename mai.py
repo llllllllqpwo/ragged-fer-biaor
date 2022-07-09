@@ -16,10 +16,8 @@ class Demo(QMainWindow):
         self.xls_action = QAction('output a xls')
         self.search_action = QAction('Search your score')
         self.record_action = QAction('record a exam')
-        # self.signup_action = QAction('signup', self)
         self.sp = ddd()
         self.iden = (-1, -1)
-        # self.setCentralWidget(QTextEdit())
         self.resize(450, 600)
         self.menu_init()
         self.action_init()
@@ -31,7 +29,6 @@ class Demo(QMainWindow):
         self.search_menu.addAction(self.search_action)
         self.search_menu.addAction(self.xls_action)
         self.record_menu.addAction(self.record_action)
-        # self.account_menu.addAction(self.signup_action)
 
 
     def action_init(self):
@@ -39,7 +36,6 @@ class Demo(QMainWindow):
         self.search_action.triggered.connect(self.search_func)
         self.xls_action.triggered.connect(self.xls_func)
         self.record_action.triggered.connect(self.record_func)
-        # self.signup_action.triggered.connect(lambda:print(self.sp.user_line.text()))
         self.sp.success.connect(self.logwin)
 
     def xls_func(self):
